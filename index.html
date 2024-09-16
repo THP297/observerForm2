@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Dashboard with Filters</title>
+    <link rel="stylesheet" href="./libraries/fontawesome-free-6.6.0-web/css/all.min.css">
+    <link rel="stylesheet" href="./libraries/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/agent-table.css">
+    <link rel="stylesheet" href="./css/indicators.css">
+    <link rel="stylesheet" href="./css/actionPanel.css">
+
+
+    <link rel="stylesheet" href="./css/transferPopup.css">
+
+</head>
+
+
+<body>
+   <div class="container-fluid">
+    <div class="row">
+        <!-- Ongoing Calls -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Cuộc gọi đang diễn ra: <span id="ongoing-count">10</span></h5>
+                    <p class="card-text">Top IVR: <span id="ongoing-ivr">Account, Card, Loan</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Queued Calls -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Cuộc gọi chờ kết nối: <span id="queued-count">8</span></h5>
+                    <p class="card-text">Top IVR: <span id="queued-ivr">Loan, Card, Insurance</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Missed Calls -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Cuộc gọi nhỡ: <span id="missed-count">5</span></h5>
+                    <p class="card-text">Top IVR: <span id="missed-ivr">Card, Loan, Mortgage</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Priority Customers Waiting -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">KH Pri chờ kết nối: <span id="priority-count">3</span></h5>
+                    <p class="card-text">Top IVR: <span id="priority-ivr">Account, Loan</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Column for Cuộc gọi đang diễn ra -->
+        <div class="col-md-6">
+            <h2 class="text-left">Cuộc gọi đang diễn ra</h2>
+            <!-- Button with Font Awesome icon for toggle filters -->
+            <button id="toggleFiltersBtn1" class="filter-btn btn mb-3" style="background-color: #46341D;" data-bs-toggle="tooltip" data-bs-placement="top" title="Show Filters">
+                <i class="fas fa-filter" style="color: #f99e1f;"></i>
+            </button>
+            <div id="filters1" class="row mb-4" style="display: none;">
+                <div class="form-group col-md-4">
+                    <label for="directionFilter">Hướng cuộc gọi:</label>
+                    <select id="directionFilter" class="form-select">
+                        <option value="">All</option>
+                        <option value="Inbound">Inbound</option>
+                        <option value="Outbound">Outbound</option>
+                        <option value="Callback">Callback</option>
+                        <option value="Campaign">Campaign</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="rankFilter">Hạng KH:</label>
+                    <select id="rankFilter" class="form-select">
+                        <option value="">All</option>
+                        <option value="Titan">Titan</option>
+                        <option value="Vàng">Vàng</option>
+                        <option value="Bạc">Bạc</option>
+                    </select>
+                </div>
+                <!-- <div class="form-group col-md-4">
+                    <label for="statusFilter">Trạng thái:</label>
+                    <select id="statusFilter" class="form-select">
+                        <option value="">All</option>
+                        <option value="Talking">Talking</option>
+                        <option value="Waiting">Waiting</option>
+                    </select>
+                </div> -->
+                <div class="form-group col-md-4">
+                    <label for="agentFilter">Agent:</label>
+                    <input type="text" id="agentFilter" class="form-control" placeholder="Enter Agent">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="phoneFilter">SĐT:</label>
+                    <input type="text" id="phoneFilter" class="form-control" placeholder="Enter Phone Number">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="ivrFilter">Queue</label>
+                <input type="text" id="ivrFilter" class="form-control" placeholder="Enter Queue">
+                </div>
+            </div>
+            <div class="table-scroll px-3">
+                <table class="table table-striped" id="activeCallsTable">
+                    <thead>
+                        <tr>
+                            <th>Thời gian</th>
+                            <th>SĐT</th>
+                            <th>KH</th>
+                            <th>Hạng KH</th>
+                            <th>Agent</th>
+                            <th>Thời gian nói</th>
+                            <th>Nhánh L3 IVR</th>
+                            <th>-</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activeCallsBody">
+                        <!-- Data will be populated here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+        <!-- Column for Cuộc gọi chờ -->
+        <div class="col-md-6">
+            <h2 class="text-left">Cuộc gọi chờ</h2>
+            <!-- Button with Font Awesome icon for toggle filters -->
+            <button id="toggleFiltersBtn2" class="filter-btn btn mb-3" style="background-color: #46341D;" data-bs-toggle="tooltip" data-bs-placement="top" title="Show Filters">
+                <i class="fas fa-filter" style="color: #f99e1f;"></i>
+            </button>
+            <div id="filters2" class="row mb-4" style="display: none;">
+                <div class="form-group col-md-4">
+                    <label for="waitingDirectionFilter">Hướng cuộc gọi:</label>
+                    <select id="waitingDirectionFilter" class="form-select">
+                        <option value="">All</option>
+                        <option value="Inbound">Inbound</option>
+                        <option value="Outbound">Outbound</option>
+                        <option value="Callback">Callback</option>
+                        <option value="Campaign">Campaign</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="waitingRankFilter">Hạng KH:</label>
+                    <select id="waitingRankFilter" class="form-select">
+                        <option value="">All</option>
+                        <option value="Titan">Titan</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Silver">Silver</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="waitingStatusFilter">Trạng thái:</label>
+                    <select id="waitingStatusFilter" class="form-select">
+                        <option value="">All</option>
+                        <option value="Transferring">Transferring</option>
+                        <option value="Routing">Routing</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="waitingAgentFilter">Agent:</label>
+                    <input type="text" id="waitingAgentFilter" class="form-control" placeholder="Enter Agent">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="waitingPhoneFilter">SĐT:</label>
+                    <input type="text" id="waitingPhoneFilter" class="form-control" placeholder="Enter Phone Number">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="waitingIvrFilter">Queue</label>
+                <input type="text" id="waitingIvrFilter" class="form-control" placeholder="Enter Queue">
+                </div>
+            </div>
+            <div class="table-scroll px-3">
+                <table class="table table-striped" id="waitingCallsTable">
+                    <thead>
+                        <tr>
+                            <th>Thời gian</th>
+                            <th>SĐT</th>
+                            <th>KH</th>
+                            <th>Hạng KH</th>
+                            <th>Agent</th>
+                            <th>Thời gian chờ</th>
+                            <th>Nhánh L3 IVR</th>
+                            <th>-</th>
+                        </tr>
+                    </thead>
+                    <tbody id="waitingCallsBody">
+                        <!-- Data will be populated here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card history p-0">
+            <!-- <div class="card-header">Trạng thái TVV</div> -->
+            <div class="overflow-auto">
+            <table class="table agent-status-table">
+                <thead class="header-row">
+                <tr>
+                    <th>Số nội bộ</th>
+                    <th>Tên đại lý</th>
+                    <th>Trạng thái</th>
+                    <th>Hàng đợi đã đăng nhập</th>
+                </tr>
+                </thead>
+                <tbody id="agentStatusTableBody">
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="transferModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h4 id="transferTitle">Transfer</h4>
+      <input type="text" id="transferNumberInput" placeholder="Enter number">
+      <div id="filteredExtensions"></div>
+    </div>
+  </div>
+  
+    
+    <script src="./libraries/jquery.js"></script>
+    <script src="./libraries/popper.js"></script>
+    <script src="./libraries/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="./sample/activeCalls.js"></script>
+    <script src="./js/filters.js"></script>
+    <script src="./js/stomp.js"></script>
+    <script src="./js/getQueryParamter.js"></script>
+    <script src="./js/updateTable.js"></script>
+    <script src="./js/ObserverStompjs.js"></script>
+    <script src="./js/CallbackStompjs.js"></script>
+    <script src="./js/actionPanel.js"></script>
+    <script src="./js/transferPanel.js"></script>
+    <script src="./js/updateIndicators.js"></script>
+
+
+</body>
+</html>

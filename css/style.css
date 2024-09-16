@@ -1,0 +1,142 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table-container {
+    width: 100%; /* Full width to allow scrolling */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding-bottom: 20px; /* Some padding for better spacing */
+}
+
+h2 {
+    font-size: 13px; /* Consistent font size for titles and labels */
+    margin-bottom: 10px;
+    text-align: left; /* Align title to the left */
+    font-weight: bold;
+}
+
+label {
+    margin-bottom: 10px;
+    text-align: left; /* Align label to the left */
+    font-size: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    table-layout: auto; /* Change to auto for responsive resizing */
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    white-space: nowrap; /* Prevent content from wrapping */
+}
+
+thead th {
+    font-weight: bold;
+    background-color: transparent;
+    font-size: 13px; /* Same font size for headers as titles and labels */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+td, input::placeholder, select {
+    font-size: 12px; /* Consistent font size for table data and filter element placeholders */
+}
+
+input, select {
+    font-size: 12px;
+}
+
+.form-control {
+    font-size: 12px;
+}
+
+.form-select {
+    font-size: 12px;
+}
+
+/* Scroll only the table body while keeping the header fixed */
+.table-scroll {
+    min-height: 250px;
+    max-height: 400px;
+    overflow-y: auto; /* Vertical scroll for table body */
+    overflow-x: auto; /* Enable horizontal scroll */
+}
+
+.table-scroll table {
+    width: 100%;
+    table-layout: auto; /* Ensure dynamic resizing */
+}
+
+/* Set percentage widths and add min-width for each column to make the table responsive */
+
+/* Date/Time */
+.table-scroll thead th:nth-child(1), .table-scroll tbody td:nth-child(1) {
+    width: 20%; /* Date/Time */
+    min-width: 150px; /* Minimum width to avoid too small */
+}
+
+/* Phone Number */
+.table-scroll thead th:nth-child(2), .table-scroll tbody td:nth-child(2) {
+    width: 15%; /* Phone Number */
+    min-width: 120px; /* Minimum width */
+}
+
+/* Customer */
+.table-scroll thead th:nth-child(3), .table-scroll tbody td:nth-child(3) {
+    width: 10%; /* Customer */
+    min-width: 100px;
+}
+
+/* Titan */
+.table-scroll thead th:nth-child(4), .table-scroll tbody td:nth-child(4) {
+    width: 10%; /* Titan */
+    min-width: 100px;
+}
+
+/* Group */
+.table-scroll thead th:nth-child(5), .table-scroll tbody td:nth-child(5) {
+    width: 15%; /* Group */
+    min-width: 120px;
+}
+
+/* Agent */
+.table-scroll thead th:nth-child(6), .table-scroll tbody td:nth-child(6) {
+    width: 10%; /* Agent */
+    min-width: 100px;
+}
+
+/* Ring Times */
+.table-scroll thead th:nth-child(7), .table-scroll tbody td:nth-child(7) {
+    width: 10%; /* Ring Times */
+    min-width: 100px;
+}
+
+/* IVR Branch */
+.table-scroll thead th:nth-child(8), .table-scroll tbody td:nth-child(8) {
+    width: 10%; /* IVR Branch */
+    min-width: 100px;
+}
+
+.table-scroll tbody td {
+    display: table-cell;
+}
+
+.table-scroll tbody tr {
+    display: table-row;
+}

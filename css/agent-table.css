@@ -1,0 +1,138 @@
+
+
+.agent-status-table .header-row {
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-weight: bold;
+}
+
+
+/* Table Styles */
+.agent-status-table {
+width: 100%;
+}
+
+
+.td-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.overflow-auto {
+  overflow-y: auto;
+  height: 100%;
+  max-height: 300px;
+}
+
+.value-wrapper{
+  margin: 0 auto;
+}
+  
+.blink {
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+@-webkit-keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+  
+.logCall-table th, .logCall-table td
+.agent-status-table th, .agent-status-table td {
+  vertical-align: middle;
+  padding: 0;
+  height: 28px;
+  word-wrap: break-word; /* or overflow-wrap: break-word; */
+}
+
+.agent-status-table td, .logCall-table td{
+  padding-right: 20px;
+}
+
+
+.agent-status-table th:nth-child(1),
+.agent-status-table td:nth-child(1) {
+  width: 10%; /* Fixed width for the first column */
+  min-width: 200px;
+}
+
+.agent-status-table th:nth-child(2),
+.agent-status-table td:nth-child(2) {
+  width: 10%; /* Fixed width for the second column */
+  min-width: 200px;
+}
+
+.agent-status-table th:nth-child(3),
+.agent-status-table td:nth-child(3) {
+  width: 10%; /* Fixed width for the second column */
+  min-width: 200px;
+}
+
+.agent-status-table th:nth-child(4),
+.agent-status-table td:nth-child(4) {
+  max-width: 50%;
+}
+
+
+.status-indicator.routing {
+  background-color: red;
+}
+.status-indicator.talking {
+  background-color: yellow;
+}
+.status-indicator.away {
+  background-color: #d7a416;
+}
+.status-indicator.lunch {
+  background-color: #f2cf5b; /* Light Green */
+}
+.status-indicator.meeting{
+  background-color: #DC3545;
+}
+.status-indicator.callback{
+  background-color: black;
+}
+.status-indicator.outbound{
+  background-color: #0176D3;
+}
+.status-indicator.logout{
+  background-color: #ABB2B9;
+}
+
+.status-indicator.campaign{
+  background-color: #9b59b6;
+}
+
+.status-indicator {
+  width: 5px;
+  background-color: #36e804;
+  display: inline-block;
+  height: 100%;
+}
+
+.filter-btn{
+  padding: 2px 7px !important;
+}
+
+
+
+.filter-btn:hover {
+  background-color: #6D5B4F !important; /* Slightly different background color on hover */
+  border-color: inherit; /* Keep the border color unchanged */
+}
+
+/* Focus effect */
+.filter-btn:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 3px #f99e1f; /* Add a glow effect on focus */
+}
