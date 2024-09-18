@@ -55,8 +55,8 @@ let MessageReceiver = (() => {
 
             activeCallsData = body.ActiveCalls; // Store the active calls data
             extensionStatusData = body.ExtensionStatus; // Store the extension status data
-            // renderActiveCalls(body)
-            // renderWaitingCalls(body)
+            renderActiveCalls(body)
+            renderWaitingCalls(body)
             updateDashboard(body)
             updateAgentStatusTable(extensionStatusData, activeCallsData);
             message.ack({ id: message.headers['message-id'] });
