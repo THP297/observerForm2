@@ -76,18 +76,30 @@ function createWaitingActionsPanel(row) {
 }
 
 
+// Variable to keep track of the currently opened action panel
+let currentOpenPanel = null;
+
 // Function to toggle the action panel
 function toggleActionPanel(panelHTML, button, row) {
     const $parentTd = $(button).parent(); // Get the parent <td> element
     const $existingPanel = $parentTd.find('.action-panel'); // Check if an action panel already exists
 
+    // If there's a currently opened panel and it's not the same as the current one, close it
+    if (currentOpenPanel && currentOpenPanel !== $parentTd) {
+        currentOpenPanel.find('.action-panel').remove(); // Close the previous panel
+        $(document).off('click.closePanel'); // Remove the document click listener
+        $(window).off('blur.closePanel'); // Remove window blur listener for iframe
+        currentOpenPanel = null; // Reset the current panel tracker
+    }
+
     if ($existingPanel.length) {
         $existingPanel.remove(); // Remove the panel if it already exists (close it)
         $(document).off('click.closePanel'); // Remove the document click listener
-        $(window).off('blur.closePanel'); // Remove window blur listener for iframe
+        $(window).off('blur.closePanel'); // Remove window blur listener
     } else {
         $parentTd.append(panelHTML); // Append the panel as a child of the <td> element
         $parentTd.css("position", "relative"); // Ensure <td> is positioned relative for absolute positioning of the panel
+        currentOpenPanel = $parentTd; // Track the current open panel
 
         // Add click event to the document to close the panel when clicking outside
         $(document).on('click.closePanel', function(event) {
@@ -95,6 +107,7 @@ function toggleActionPanel(panelHTML, button, row) {
                 $parentTd.find('.action-panel').remove(); // Remove the panel
                 $(document).off('click.closePanel'); // Remove the document click listener
                 $(window).off('blur.closePanel'); // Remove the window blur listener
+                currentOpenPanel = null; // Reset the current panel tracker
             }
         });
 
@@ -103,6 +116,7 @@ function toggleActionPanel(panelHTML, button, row) {
             $parentTd.find('.action-panel').remove(); // Remove the panel
             $(document).off('click.closePanel'); // Remove the document click listener
             $(window).off('blur.closePanel'); // Remove the window blur listener
+            currentOpenPanel = null; // Reset the current panel tracker
         });
 
         // Attach click event to the context menu options

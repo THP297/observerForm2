@@ -195,7 +195,7 @@ $("#waitingDirectionFilter, #waitingRankFilter, #waitingStatusFilter").on("chang
 $("#waitingAgentFilter, #waitingPhoneFilter, #waitingIvrFilter").on("input", renderWaitingCalls);
 
 
-// setInterval(() => {
-//             renderActiveCalls(generateRandomData(50))
-//             renderWaitingCalls(generateRandomData(50))
-// }, 1000);
+setInterval(() => {
+            renderActiveCalls(dataCalls)
+            renderWaitingCalls(dataCalls)
+}, 1000);

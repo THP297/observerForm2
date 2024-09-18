@@ -48,6 +48,7 @@ let MessageReceiver = (() => {
             let body = JSON.parse(message.body);
             let bodyString = JSON.stringify(body);
 
+            console.log("Màn hình giám sát cuộc gọi",body.ActiveCalls)
             
             lastMessageId = message.headers['message-id'];
             lastMessageBody = bodyString;
